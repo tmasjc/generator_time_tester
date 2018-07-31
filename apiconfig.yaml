@@ -1,0 +1,13 @@
+---
+Generator-One:
+    host: pwd-generator
+    port: 8899
+    swagger: gen_password
+    
+    
+Generator-N:
+    host: pwd-generator
+    port: 8899
+    swagger: gen_n_password
+...
+

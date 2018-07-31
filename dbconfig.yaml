@@ -1,0 +1,9 @@
+---
+Some-Mongo:
+    user: admin
+    password: example
+    host: some-mongo
+    port: 27017
+    db: dummy
+    collection: random_password
+...
