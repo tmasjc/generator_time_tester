@@ -1,14 +1,14 @@
 ---
 Generator-One:
-    #host: pwd-generator
-    host: 127.0.0.1
+    host: generator
+    #host: 127.0.0.1
     port: 8899
     swagger: gen_password
     
     
 Generator-N:
-    #host: pwd-generator
-    host: 127.0.0.1
+    host: generator
+    #host: 127.0.0.1
     port: 8899
     swagger: gen_n_password
 ...

@@ -2,7 +2,7 @@ library(tidyverse)
 library(yaml)
 library(httr)
 library(mongolite)
-
+library(cli)
 
 # Helper Function ---------------------------------------------------------
 
@@ -98,8 +98,12 @@ fetch_password <- function(endpoint, n_password) {
 # get endpoint
 ep <- read_api_config("Generator-N")
 
+cat_rule("Ready to send requests.", col = "lightblue")
+
 # does the result length increase response time?
 temp <- map(1:100, fetch_password, endpoint = ep)
+
+cat_rule("Ready to write documents", col = "lightblue")
 
 # write to database
 mg <- est_mongo_conn("Some-Mongo")
@@ -111,6 +115,6 @@ temp %>%
     mutate(ts = as.numeric(ts)) %>% 
     mg$insert()
     
-    
+cat_rule("Mission complete.", col = "green")    
 
 
