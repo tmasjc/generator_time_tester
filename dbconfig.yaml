@@ -2,7 +2,7 @@
 Some-Mongo:
     user: admin
     password: example
-    host: some-mongo
+    host: 127.0.0.1
     port: 27017
     db: dummy
     collection: random_password

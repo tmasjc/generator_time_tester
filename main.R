@@ -72,17 +72,45 @@ read_api_config <- function(which_api){
 # API cofig goes here
 pwd_generator <- read_api_config("Generator-N")
 
-# generate testing samples
 
+# main tester function goes here
+fetch_password <- function(endpoint, n_password) {
+    
+    # -- start time --
+    start = Sys.time()
+    
+    # retrive password
+    pwds <- paste0(ep, "?n=", n_password) %>% GET() %>% content()
+    
+    # -- end time --
+    end <- Sys.time()
+    
+    # return
+    list(
+        x = n_password,
+        # if lenght of result is correct
+        status = ( length(pwds) == n_password ),
+        # time spent
+        ts = ( end - start )
+    )
+}
 
-# send request
-res <- pwd_generator %>% 
-    GET() %>% 
-    content()
+# get endpoint
+ep <- read_api_config("Generator-N")
+
+# does the result length increase response time?
+temp <- map(1:100, fetch_password, endpoint = ep)
 
 # write to database
 mg <- est_mongo_conn("Some-Mongo")
 
 # insert result here
+temp %>% 
+    bind_rows() %>% 
+    # Mongo does not recognise S3 difftime object
+    mutate(ts = as.numeric(ts)) %>% 
+    mg$insert()
+    
+    
 
 
