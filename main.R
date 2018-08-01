@@ -63,6 +63,8 @@ read_api_config <- function(which_api){
     # return endpoint
     endpoint = with(d[[which_api]], paste0(host, ":", port, "/", swagger))
     
+    # return 
+    endpoint
 }
 
 
@@ -101,9 +103,9 @@ ep <- read_api_config("Generator-N")
 cat_rule("Ready to send requests.", col = "lightblue")
 
 # does the result length increase response time?
-temp <- map(1:100, fetch_password, endpoint = ep)
+temp <- map(1:99, fetch_password, endpoint = ep)
 
-cat_rule("Ready to write documents", col = "lightblue")
+cat_rule("Ready to export result", col = "lightblue")
 
 # write to database
 mg <- est_mongo_conn("Some-Mongo")
@@ -114,6 +116,11 @@ temp %>%
     # Mongo does not recognise S3 difftime object
     mutate(ts = as.numeric(ts)) %>% 
     mg$insert()
+
+cat_rule("Exported result.", col = "lightblue")
+
+# trigger validator
+read_api_config("Validator") %>% GET()
     
 cat_rule("Mission complete.", col = "green")    
 

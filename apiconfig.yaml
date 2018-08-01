@@ -5,11 +5,15 @@ Generator-One:
     port: 8899
     swagger: gen_password
     
-    
 Generator-N:
     host: generator
     #host: 127.0.0.1
     port: 8899
     swagger: gen_n_password
+    
+Validator:
+    host: validator
+    port: 8899
+    swagger: trigger
 ...
 
