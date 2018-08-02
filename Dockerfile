@@ -15,8 +15,10 @@ RUN apt-get update -y \
 
 COPY . /tester
 
-# docker compose wait
-RUN chmod +x wait 
-
 # setwd
 WORKDIR /tester
+
+# make wait executable
+RUN chmod +x wait 
+
+
