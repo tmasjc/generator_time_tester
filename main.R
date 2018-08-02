@@ -87,20 +87,23 @@ fetch_password <- function(endpoint, n_password) {
     # -- end time --
     end <- Sys.time()
     
+    # report status
+    sprintf("Get n password; n = %s", n_password) %>% cat_rule()
+    
     # return
     list(
         x = n_password,
         # if lenght of result is correct
         status = ( length(pwds) == n_password ),
         # time spent
-        ts = ( end - start )
+        total_time = ( end - start )
     )
 }
 
 cat_rule("Ready to send requests.", col = "lightblue")
 
 # does the result length increase response time?
-temp <- map(1:99, fetch_password, endpoint = pwd_generator)
+temp <- map(1:10, fetch_password, endpoint = pwd_generator)
 
 cat_rule("Ready to export result", col = "lightblue")
 
@@ -111,13 +114,13 @@ mg <- est_mongo_conn("Some-Mongo")
 temp %>% 
     bind_rows() %>% 
     # Mongo does not recognise S3 difftime object
-    mutate(ts = as.numeric(ts)) %>% 
+    mutate(total_time = as.numeric(total_time), ts = Sys.time()) %>% 
     mg$insert()
 
 cat_rule("Exported result.", col = "lightblue")
 
 # trigger validator
-read_api_config("Validator") %>% GET()
+#read_api_config("Validator") %>% GET()
     
 cat_rule("Mission complete.", col = "green")    
 
