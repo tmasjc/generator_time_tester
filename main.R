@@ -82,7 +82,7 @@ fetch_password <- function(endpoint, n_password) {
     start = Sys.time()
     
     # retrive password
-    pwds <- paste0(ep, "?n=", n_password) %>% GET() %>% content()
+    pwds <- paste0(endpoint, "?n=", n_password) %>% GET() %>% content()
     
     # -- end time --
     end <- Sys.time()
@@ -97,13 +97,10 @@ fetch_password <- function(endpoint, n_password) {
     )
 }
 
-# get endpoint
-ep <- read_api_config("Generator-N")
-
 cat_rule("Ready to send requests.", col = "lightblue")
 
 # does the result length increase response time?
-temp <- map(1:99, fetch_password, endpoint = ep)
+temp <- map(1:99, fetch_password, endpoint = pwd_generator)
 
 cat_rule("Ready to export result", col = "lightblue")
 
