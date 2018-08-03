@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # wait for host to be ready
-/wait
+./wait
 
 # run script
 Rscript --vanilla main.R
