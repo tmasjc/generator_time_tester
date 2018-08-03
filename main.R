@@ -103,7 +103,7 @@ fetch_password <- function(endpoint, n_password) {
 cat_rule("Ready to send requests.", col = "lightblue")
 
 # does the result length increase response time?
-temp <- map(1:10, fetch_password, endpoint = pwd_generator)
+temp <- map(1:99, fetch_password, endpoint = pwd_generator)
 
 cat_rule("Ready to export result", col = "lightblue")
 
