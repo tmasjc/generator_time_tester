@@ -120,7 +120,7 @@ temp %>%
 cat_rule("Exported result.", col = "lightblue")
 
 # trigger validator
-#read_api_config("Validator") %>% GET()
+read_api_config("Validator") %>% GET()
     
 cat_rule("Mission complete.", col = "green")    
 

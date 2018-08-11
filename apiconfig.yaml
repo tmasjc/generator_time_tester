@@ -14,6 +14,6 @@ Generator-N:
 Validator:
     host: validator
     port: 8899
-    swagger: trigger
+    swagger: status
 ...
 
